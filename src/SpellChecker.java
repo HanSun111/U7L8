@@ -52,20 +52,22 @@ public class SpellChecker
     public boolean binarySpellCheck(String word)
     {
         int x = 0; // left
-        int y = dictionary.size(); // right
+        int y = dictionary.size() - 1; // right
+        int numCheck = 0;
         while(x <= y){
-            int middle = 1 + (y - 1) / 2;
+            numCheck++;
+            int middle = (x + y) / 2;
             int targetPosition = word.compareTo(dictionary.get(middle));
 
             if(targetPosition > 0){
                 x = middle + 1;
             }
-            if(targetPosition == 0){
-                System.out.println("-- LINEAR SEARCH: Number of words checked (loops/runtime): " + middle);
-                return true;
+            if(targetPosition < 0){
+                y = middle - 1;
             }
             else{
-                y = middle - 1;
+                System.out.println("-- LINEAR SEARCH: Number of words checked (loops/runtime): " + numCheck);
+                return true;
             }
         }
         return false;
